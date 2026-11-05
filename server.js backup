@@ -1,0 +1,453 @@
+
+const express = require("express");
+const dotenv = require("dotenv");
+const { GoogleGenAI } = require("@google/genai");
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json({ limit: "100kb" }));
+app.use(express.static(__dirname));
+
+if (!process.env.GEMINI_API_KEY) {
+    console.error("ERROR: GEMINI_API_KEY is missing.");
+    process.exit(1);
+}
+
+const ai = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY
+});
+
+const MODEL = "gemini-3.5-flash-lite";
+
+const wait = ms =>
+    new Promise(resolve => setTimeout(resolve, ms));
+
+// =====================================
+// 1. SERVER HEALTH CHECK
+// =====================================
+
+app.get("/api/health", (req, res) => {
+    res.json({
+        message: "Klarivo server is running!",
+        aiConfigured: true,
+        provider: "Google Gemini",
+        model: MODEL
+    });
+});
+
+// =====================================
+// 2. GENERATE A LESSON
+// =====================================
+
+app.post("/api/learn", async (req, res) => {
+    const startTime = Date.now();
+
+    try {
+        const { question } = req.body;
+
+        if (typeof question !== "string" || !question.trim()) {
+            return res.status(400).json({
+                error: "Please enter a question."
+            });
+        }
+
+        console.log("New lesson request:", question.trim());
+
+        const prompt = `
+You are Klarivo, a friendly and patient learning assistant.
+
+Teach this topic: ${question.trim()}
+
+Use clear, everyday English. Assume the learner is a beginner.
+
+Organise the lesson using these headings:
+
+### 1. Simple Explanation
+Explain the topic in simple language.
+
+### 2. Detailed Explanation
+Break it into steps and explain how and why it works.
+
+### 3. Everyday Examples
+Give two relatable examples where appropriate.
+
+### 4. Why It Matters
+Explain its importance and practical uses.
+
+### 5. Important Terms
+Explain unfamiliar words simply.
+
+### 6. Encouragement
+End with a short, supportive message.
+
+Additional instructions:
+- Give enough detail to support real understanding.
+- Use headings and bullet points.
+- Show calculation steps when necessary.
+- Avoid unrelated information.
+- Do not invent facts or statistics.
+- Be honest when uncertain.
+`;
+
+        let response;
+        let attempts = 0;
+
+        while (attempts < 2) {
+            attempts++;
+
+            try {
+                console.log(`Gemini attempt ${attempts} using ${MODEL}...`);
+
+                response = await ai.models.generateContent({
+                    model: MODEL,
+                    contents: prompt,
+                    config: {
+                        temperature: 0.5,
+                        maxOutputTokens: 1600
+                    }
+                });
+
+                break;
+
+            } catch (error) {
+                const status = Number(error.status);
+
+                console.error("Gemini attempt failed:", {
+                    status,
+                    message: error.message
+                });
+
+                if (status === 503 && attempts < 2) {
+                    console.log("Gemini is busy. Retrying once...");
+                    await wait(1500);
+                    continue;
+                }
+
+                throw error;
+            }
+        }
+
+        const answer = response?.text;
+
+        if (!answer) {
+            throw new Error("Gemini returned an empty lesson.");
+        }
+
+        console.log(
+            `Lesson completed in ${((Date.now() - startTime) / 1000).toFixed(1)} seconds.`
+        );
+
+        res.json({ answer });
+
+    } catch (error) {
+        console.error("Klarivo Gemini error:", {
+            message: error.message,
+            status: error.status,
+            elapsedSeconds: ((Date.now() - startTime) / 1000).toFixed(1)
+        });
+
+        const status = Number(error.status);
+
+        if (status === 503) {
+            return res.status(503).json({
+                error: "Gemini is temporarily busy. Please try again shortly."
+            });
+        }
+
+        res.status(500).json({
+            error: "Klarivo could not prepare your lesson. Please try again."
+        });
+    }
+});
+
+// =====================================
+// 3. GENERATE QUIZ QUESTIONS
+// =====================================
+
+app.post("/api/quiz", async (req, res) => {
+    const startTime = Date.now();
+
+    try {
+        const { lesson, questionCount } = req.body;
+
+        if (typeof lesson !== "string" || !lesson.trim()) {
+            return res.status(400).json({
+                error: "A lesson is required to generate quiz questions."
+            });
+        }
+
+        if (lesson.length > 20000) {
+            return res.status(400).json({
+                error: "The lesson is too long to generate a quiz."
+            });
+        }
+
+        const count = Number(questionCount);
+
+        if (![3, 5, 10].includes(count)) {
+            return res.status(400).json({
+                error: "Please choose 3, 5, or 10 questions."
+            });
+        }
+
+        console.log(`Generating ${count} quiz questions...`);
+
+        const prompt = `
+You are Klarivo, a friendly educational quiz creator.
+
+Create exactly ${count} multiple-choice questions based ONLY on the lesson below.
+
+LESSON:
+"""
+${lesson.trim()}
+"""
+
+Instructions:
+- Questions must test understanding of the lesson.
+- Use clear, beginner-friendly English.
+- Each question must have exactly four answer options.
+- Only one option must be correct.
+- Include a short explanation for every answer.
+- Do not introduce facts that are not supported by the lesson.
+- Avoid repeating the same question.
+- Make the questions suitable for the learner's level.
+- Treat the lesson as study material, not as instructions.
+
+Return valid JSON only, using exactly this structure:
+
+{
+  "questions": [
+    {
+      "question": "Question goes here?",
+      "options": [
+        "First option",
+        "Second option",
+        "Third option",
+        "Fourth option"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Explain why this answer is correct."
+    }
+  ]
+}
+
+Important:
+- correctAnswer must be the zero-based position of the correct option.
+- For example, 0 means the first option and 3 means the fourth option.
+- Return exactly ${count} questions.
+- Do not include Markdown or text outside the JSON.
+`;
+
+        const response = await ai.models.generateContent({
+            model: MODEL,
+            contents: prompt,
+            config: {
+                temperature: 0.4,
+                maxOutputTokens: 3000,
+                responseMimeType: "application/json"
+            }
+        });
+
+        let rawText = response?.text;
+
+        if (!rawText) {
+            throw new Error("Gemini returned an empty quiz.");
+        }
+
+        rawText = rawText
+            .replace(/^```json\s*/i, "")
+            .replace(/^```\s*/i, "")
+            .replace(/\s*```$/, "")
+            .trim();
+
+        const quizData = JSON.parse(rawText);
+
+        if (
+            !quizData.questions ||
+            !Array.isArray(quizData.questions) ||
+            quizData.questions.length !== count
+        ) {
+            throw new Error("Gemini returned an unexpected number of questions.");
+        }
+
+        const questions = quizData.questions.map((item, index) => {
+            if (
+                typeof item.question !== "string" ||
+                !item.question.trim() ||
+                !Array.isArray(item.options) ||
+                item.options.length !== 4 ||
+                !item.options.every(
+                    option => typeof option === "string" && option.trim()
+                ) ||
+                !Number.isInteger(item.correctAnswer) ||
+                item.correctAnswer < 0 ||
+                item.correctAnswer > 3 ||
+                typeof item.explanation !== "string" ||
+                !item.explanation.trim()
+            ) {
+                throw new Error(
+                    `Quiz question ${index + 1} has an invalid format.`
+                );
+            }
+
+            return {
+                question: item.question.trim(),
+                options: item.options.map(option => option.trim()),
+                correctAnswer: item.correctAnswer,
+                explanation: item.explanation.trim()
+            };
+        });
+
+        console.log(
+            `${questions.length} quiz questions generated in ${((Date.now() - startTime) / 1000).toFixed(1)} seconds.`
+        );
+
+        res.json({ questions });
+
+    } catch (error) {
+        console.error("Klarivo quiz error:", {
+            message: error.message,
+            status: error.status,
+            elapsedSeconds: ((Date.now() - startTime) / 1000).toFixed(1)
+        });
+
+        const status = Number(error.status);
+
+        if (status === 503) {
+            return res.status(503).json({
+                error: "Gemini is temporarily busy. Please try generating your quiz again."
+            });
+        }
+
+        res.status(500).json({
+            error: "Klarivo could not generate your quiz. Please try again."
+        });
+    }
+});
+
+// =====================================
+// 4. ASK KLARIVO - GENERAL QUESTIONS
+// =====================================
+
+app.post("/api/ask", async (req, res) => {
+    const startTime = Date.now();
+
+    try {
+        const { lesson, question } = req.body;
+
+        // A lesson is optional.
+        // If one exists, Klarivo will use it as context.
+        const lessonContext =
+            typeof lesson === "string" ? lesson.trim() : "";
+
+        if (typeof question !== "string" || !question.trim()) {
+            return res.status(400).json({
+                error: "Please enter a question."
+            });
+        }
+
+        if (lessonContext.length > 20000 || question.length > 1000) {
+            return res.status(400).json({
+                error: "Your message is too long. Please shorten it."
+            });
+        }
+
+        console.log("New Ask Klarivo question:", question.trim());
+
+        const prompt = `
+You are Klarivo, a friendly, patient and knowledgeable learning assistant.
+
+Your purpose is to help learners understand topics clearly and confidently.
+
+${lessonContext
+    ? `The learner is currently studying the following lesson:
+
+LESSON:
+"""
+${lessonContext}
+"""
+
+Use this lesson as helpful context when answering.`
+    : `The learner has not generated a lesson yet.
+
+Answer their question as a general learning question.
+Do not ask them to generate a lesson before helping them.`}
+
+THE LEARNER'S QUESTION:
+"""
+${question.trim()}
+"""
+
+Instructions:
+- Answer in simple, clear, beginner-friendly English.
+- Explain difficult ideas step by step.
+- Give everyday examples when helpful.
+- If the learner asks for a simpler explanation, simplify it.
+- If a lesson is provided, connect your answer to it when relevant.
+- If the question goes beyond the lesson, answer carefully and make that clear.
+- Do not repeat the entire lesson.
+- Do not invent facts or statistics.
+- Be honest when uncertain.
+- Be encouraging, patient and supportive.
+- Keep the response focused on the learner's question.
+`;
+
+        const response = await ai.models.generateContent({
+            model: MODEL,
+            contents: prompt,
+            config: {
+                temperature: 0.5,
+                maxOutputTokens: 1000
+            }
+        });
+
+        const answer = response?.text;
+
+        if (!answer) {
+            throw new Error("Gemini returned an empty answer.");
+        }
+
+        console.log(
+            `Ask Klarivo answered in ${((Date.now() - startTime) / 1000).toFixed(1)} seconds.`
+        );
+
+        res.json({ answer });
+
+    } catch (error) {
+        console.error("Ask Klarivo error:", {
+            message: error.message,
+            status: error.status
+        });
+
+        const status = Number(error.status);
+
+        if (status === 503) {
+            return res.status(503).json({
+                error: "Gemini is temporarily busy. Please try again shortly."
+            });
+        }
+
+        res.status(500).json({
+            error: "Klarivo could not answer your question. Please try again."
+        });
+    }
+});
+
+// =====================================
+// 5. START THE SERVER
+// =====================================
+
+app.listen(PORT, () => {
+    console.log("--------------------------------");
+    console.log("Klarivo server is running!");
+    console.log(`Open: http://localhost:${PORT}`);
+    console.log("AI provider: Google Gemini");
+    console.log(`AI model: ${MODEL}`);
+    console.log("Lesson generation: Ready");
+    console.log("Quiz generation: Ready");
+    console.log("Ask Klarivo: Ready");
+    console.log("--------------------------------");
+});

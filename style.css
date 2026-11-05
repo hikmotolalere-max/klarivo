@@ -1,0 +1,1264 @@
+
+/* =========================================
+   KLARIVO - COMPLETE STYLES
+   Clean, responsive learning experience
+========================================= */
+
+/* 1. GENERAL STYLES */
+
+:root {
+    --blue: #2868c7;
+    --blue-dark: #1e55a8;
+    --blue-light: #edf4ff;
+    --navy: #20375d;
+    --text: #263653;
+    --muted: #687890;
+    --background: #f5f8fd;
+    --white: #ffffff;
+    --border: #e2e9f3;
+    --success: #238653;
+    --danger: #c03939;
+    --shadow: 0 5px 22px rgba(35, 65, 110, 0.06);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.hidden {
+    display: none !important;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d5deec;
+    border-radius: 9px;
+    background: var(--white);
+    color: var(--text);
+    outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(57, 117, 215, 0.12);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+    color: var(--navy);
+}
+
+p {
+    margin-bottom: 14px;
+    color: var(--muted);
+}
+
+h1,
+h2,
+h3 {
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+main {
+    width: 100%;
+    padding: 1px 0 50px;
+}
+
+/* 2. HEADER AND LOGO */
+
+.header {
+    width: 100%;
+    min-height: 76px;
+    padding: 16px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--navy);
+}
+
+.logo-icon {
+    display: none;
+}
+
+.logo-dot {
+    color: var(--blue);
+}
+
+.tagline {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+/* 3. WELCOME PAGE */
+
+.welcome-section {
+    width: min(92%, 490px);
+    margin: 65px auto;
+    padding: 38px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.welcome-section h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.welcome-section .subtitle {
+    margin-bottom: 20px;
+}
+
+.welcome-illustration {
+    width: 82px;
+    height: 82px;
+    margin: 22px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 22px;
+    background: var(--blue-light);
+    font-size: 2.2rem;
+}
+
+.welcome-illustration span {
+    color: var(--blue);
+    font-size: 1.2rem;
+}
+
+.welcome-form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.welcome-form input {
+    margin-bottom: 12px;
+}
+
+.welcome-form button {
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* 4. BUTTONS */
+
+button[type="submit"],
+#startQuizButton,
+#askButton,
+#startLearningButton {
+    background: var(--blue);
+    color: white;
+    padding: 13px 20px;
+    border-radius: 9px;
+    font-weight: 600;
+}
+
+button[type="submit"]:hover,
+#startQuizButton:hover,
+#askButton:hover,
+#startLearningButton:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+}
+
+.secondary-button {
+    background: var(--blue-light);
+    color: var(--blue);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.secondary-button:hover {
+    background: #dce8fb;
+}
+
+/* 5. DASHBOARD LAYOUT */
+
+.dashboard {
+    width: min(92%, 1100px);
+    margin: 35px auto;
+}
+
+.dashboard > section,
+.dashboard > div {
+    width: 100%;
+    margin: 25px 0;
+}
+
+.dashboard-heading {
+    text-align: center;
+    padding: 30px 15px 20px;
+}
+
+.dashboard-heading h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.dashboard-heading > p {
+    font-size: 1.05rem;
+}
+
+.top-voice-assistant {
+    margin: 20px auto 0;
+}
+
+.top-voice-assistant p {
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
+/* 6. VOICE BUTTONS AND STATUS */
+
+.voice-question-button,
+.voice-button {
+    background: var(--blue-light);
+    color: var(--blue);
+    border: 1px solid #d5e3fa;
+    border-radius: 50px;
+    padding: 10px 17px;
+    font-weight: 600;
+}
+
+.voice-question-button:hover,
+.voice-button:hover {
+    background: #dce9fc;
+}
+
+.voice-button.listening,
+.voice-question-button.listening {
+    background: #fff0f0;
+    color: var(--danger);
+    border-color: #f0baba;
+    animation: voicePulse 1.2s infinite;
+}
+
+.voice-status {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 7px;
+    min-height: 22px;
+}
+
+@keyframes voicePulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(192, 57, 57, 0.25);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(192, 57, 57, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(192, 57, 57, 0);
+    }
+}
+
+/* 7. LANGUAGE SETTINGS */
+
+.language-settings {
+    display: block;
+    width: 100%;
+    padding: 25px;
+    margin: 25px 0;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.language-settings-heading {
+    margin-bottom: 22px;
+}
+
+.language-settings-heading h2 {
+    margin: 7px 0;
+}
+
+.card-label {
+    display: inline-block;
+    color: var(--blue);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.language-settings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.language-setting {
+    min-width: 0;
+    padding: 18px;
+    background: #f8faff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.language-setting label {
+    font-size: 0.95rem;
+}
+
+.language-setting p {
+    font-size: 0.85rem;
+    min-height: 65px;
+    margin-bottom: 12px;
+}
+
+.language-setting select {
+    font-size: 0.9rem;
+}
+
+.language-note {
+    margin: 18px 0 0;
+    font-size: 0.85rem;
+}
+
+/* 8. PROGRESS SUMMARY */
+
+.progress-section {
+    padding: 25px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.progress-section h2 {
+    margin-bottom: 20px;
+}
+
+.progress-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.progress-card {
+    padding: 22px 15px;
+    text-align: center;
+    background: #f5f8ff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.progress-card span {
+    display: block;
+    color: var(--blue);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.progress-card p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* 9. LEARNING SPACE */
+
+.learning-card {
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.learning-card h2 {
+    margin-bottom: 8px;
+}
+
+.topic-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 22px;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+.topic-form input,
+.topic-form select {
+    margin-bottom: 10px;
+}
+
+.topic-input-voice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topic-input-voice input {
+    flex: 1;
+    min-width: 0;
+}
+
+.topic-input-voice button {
+    flex-shrink: 0;
+}
+
+/* 10. LESSON AREA */
+
+.lesson-section {
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+#lesson {
+    margin-top: 20px;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+#lesson:empty {
+    display: none;
+}
+
+#lesson h1,
+#lesson h2,
+#lesson h3 {
+    margin-top: 20px;
+}
+
+#lesson h1:first-child,
+#lesson h2:first-child,
+#lesson h3:first-child {
+    margin-top: 0;
+}
+
+#lesson ul,
+#lesson ol {
+    padding-left: 25px;
+    margin: 12px 0;
+}
+
+#lesson li {
+    margin-bottom: 8px;
+}
+
+#lesson pre {
+    overflow-x: auto;
+    background: #f1f5fb;
+    padding: 14px;
+    border-radius: 8px;
+}
+
+#lesson code {
+    background: #f1f5fb;
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+/* 11. READ ALOUD */
+
+.read-aloud-controls {
+    padding: 20px;
+    margin: 20px 0;
+    background: #f5f8ff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.read-aloud-heading span {
+    display: block;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+}
+
+.read-aloud-heading p {
+    font-size: 0.9rem;
+}
+
+.read-aloud-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.read-aloud-actions button {
+    background: var(--blue-light);
+    color: var(--blue);
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.read-aloud-actions button:hover:not(:disabled) {
+    background: #dce8fb;
+}
+
+.reading-settings {
+    display: grid;
+    grid-template-columns: auto minmax(100px, 1fr) auto minmax(120px, 1fr);
+    align-items: center;
+    gap: 10px;
+}
+
+.reading-settings label {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+#readingStatus {
+    margin-top: 12px;
+    font-size: 0.9rem;
+}
+
+/* 12. QUIZ AREA */
+
+#quizArea {
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+#quizIntroduction {
+    color: var(--muted);
+}
+
+#questionCount {
+    max-width: 220px;
+    margin: 8px 0 16px;
+}
+
+#quiz {
+    margin-top: 22px;
+    padding: 20px;
+    background: #f9fbff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+#quiz:empty {
+    display: none;
+}
+
+.quiz-question {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 20px;
+}
+
+.quiz-progress {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.quiz-mode-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.quiz-mode-button {
+    background: #edf2fa;
+    color: #365579;
+    border: 1px solid #dce5f2;
+    border-radius: 9px;
+    padding: 10px 15px;
+    font-weight: 600;
+}
+
+.quiz-mode-button.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+}
+
+.quiz-mode-button:hover:not(:disabled) {
+    border-color: var(--blue);
+}
+
+/* 13. MULTIPLE-CHOICE ANSWERS */
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 18px 0;
+}
+
+.quiz-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 16px;
+    background: white;
+    border: 1px solid #dce5f2;
+    border-radius: 10px;
+    text-align: left;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.quiz-option:hover:not(:disabled) {
+    background: #f1f6ff;
+    border-color: #8bb2ed;
+}
+
+.quiz-option.selected {
+    background: #edf4ff;
+    border: 2px solid var(--blue);
+    padding: 13px 15px;
+}
+
+.quiz-option.correct {
+    background: #eaf8ef;
+    border-color: #35a467;
+}
+
+.quiz-option.incorrect {
+    background: #fff0f0;
+    border-color: #d95d5d;
+}
+
+.quiz-option:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+.quiz-option input {
+    width: auto;
+    margin-top: 5px;
+    accent-color: var(--blue);
+}
+
+/* 14. WRITTEN AND SPOKEN QUIZ ANSWERS */
+
+.quiz-written-answer {
+    margin: 20px 0;
+}
+
+.quiz-written-answer label {
+    margin-bottom: 9px;
+}
+
+.quiz-written-answer textarea {
+    min-height: 130px;
+    padding: 14px;
+    border-radius: 10px;
+    line-height: 1.6;
+}
+
+.quiz-written-answer textarea:disabled {
+    background: #f2f5f9;
+    cursor: not-allowed;
+}
+
+.quiz-voice-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+#quizVoiceButton {
+    background: var(--blue-light);
+    color: var(--blue);
+    border: 1px solid #d5e3fa;
+    border-radius: 50px;
+    padding: 10px 16px;
+    font-weight: 600;
+}
+
+#quizVoiceButton:hover {
+    background: #dce9fc;
+}
+
+#quizVoiceButton.listening {
+    background: #fff0f0;
+    color: var(--danger);
+    border-color: #f0baba;
+}
+
+#quizVoiceStatus {
+    font-size: 0.9rem;
+    color: var(--muted);
+    min-height: 22px;
+}
+
+/* 15. QUIZ ACTIONS */
+
+.quiz-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+#checkAnswerButton,
+#nextQuestionButton {
+    background: var(--blue);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 9px;
+    font-weight: 600;
+}
+
+#checkAnswerButton:hover:not(:disabled),
+#nextQuestionButton:hover:not(:disabled) {
+    background: var(--blue-dark);
+}
+
+/* 16. QUIZ FEEDBACK */
+
+#feedback {
+    margin-top: 18px;
+    line-height: 1.7;
+}
+
+#feedback:empty {
+    display: none;
+}
+
+.feedback-correct {
+    background: #eaf8ef;
+    border: 1px solid #a8dfbd;
+    color: #236b43;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.feedback-incorrect {
+    background: #fff2f0;
+    border: 1px solid #f0c0b9;
+    color: #91443c;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.feedback-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.feedback-explanation {
+    margin-top: 10px;
+}
+
+/* 17. QUIZ RESULTS */
+
+.quiz-results {
+    text-align: center;
+    padding: 25px 10px;
+}
+
+.quiz-results h2 {
+    color: var(--blue);
+}
+
+.quiz-score {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--blue);
+    margin: 15px 0;
+}
+
+/* 18. LEARNING JOURNEY */
+
+.journey-section {
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.journey-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.journey-card {
+    background: #f8faff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: left;
+    transition: 0.2s ease;
+}
+
+.journey-card:hover {
+    border-color: var(--blue);
+    transform: translateY(-2px);
+}
+
+.journey-number {
+    display: block;
+    color: var(--blue);
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.journey-card h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.journey-card p {
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* 19. NEXT LEARNING */
+
+.next-learning {
+    padding: 25px;
+    background: var(--blue-light);
+    border: 1px solid #d8e6fb;
+    border-radius: 16px;
+}
+
+/* 20. ASK KLARIVO */
+
+.ask-klarivo-section {
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.ask-klarivo-heading {
+    margin-bottom: 20px;
+}
+
+.ask-klarivo-heading h2 {
+    margin-bottom: 8px;
+}
+
+.ask-chat {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 15px;
+    margin: 20px 0;
+    background: #f8faff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.ask-chat:empty {
+    display: none;
+}
+
+.chat-message {
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.user-message {
+    background: #edf4ff;
+    margin-left: 10%;
+}
+
+.klarivo-message {
+    background: #f1f4f8;
+    margin-right: 10%;
+}
+
+.ask-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+    margin-top: 20px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.ask-form textarea {
+    margin-bottom: 0;
+}
+
+.ask-form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* 21. FOOTER */
+
+.footer {
+    width: 100%;
+    padding: 25px 6%;
+    text-align: center;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+}
+
+.footer p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* 22. PROGRESS BAR SUPPORT */
+
+.progress-container {
+    background: #e5ebf4;
+    height: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: var(--blue);
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+/* 23. RESPONSIVE DESIGN */
+
+@media (max-width: 850px) {
+    .language-settings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .language-setting p {
+        min-height: auto;
+    }
+
+    .journey-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 15px 5%;
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+    }
+
+    .logo {
+        font-size: 1.6rem;
+    }
+
+    .tagline {
+        font-size: 0.85rem;
+    }
+
+    .welcome-section {
+        width: 92%;
+        margin: 30px auto;
+        padding: 25px 20px;
+    }
+
+    .welcome-section h1 {
+        font-size: 1.65rem;
+    }
+
+    .dashboard {
+        width: 94%;
+        margin: 20px auto;
+    }
+
+    .dashboard-heading h1 {
+        font-size: 1.65rem;
+    }
+
+    .language-settings,
+    .progress-section,
+    .learning-card,
+    .lesson-section,
+    #quizArea,
+    .journey-section,
+    .ask-klarivo-section {
+        padding: 18px;
+    }
+
+    .progress-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .progress-card {
+        padding: 16px;
+    }
+
+    .topic-input-voice {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .topic-input-voice button {
+        width: 100%;
+    }
+
+    .journey-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .journey-card {
+        padding: 15px 12px;
+    }
+
+    .reading-settings {
+        grid-template-columns: 1fr;
+        gap: 7px;
+    }
+
+    .reading-settings label:not(:first-child) {
+        margin-top: 10px;
+    }
+
+    .quiz-mode-options {
+        flex-direction: column;
+    }
+
+    .quiz-mode-button {
+        width: 100%;
+    }
+
+    .quiz-actions {
+        flex-direction: column;
+    }
+
+    #checkAnswerButton,
+    #nextQuestionButton {
+        width: 100%;
+    }
+
+    .user-message {
+        margin-left: 3%;
+    }
+
+    .klarivo-message {
+        margin-right: 3%;
+    }
+
+    .ask-form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ask-form-actions button {
+        width: 100%;
+    }
+}
+/* LANGUAGE SETTINGS TOGGLE BUTTON */
+
+.language-settings-toggle {
+    display: flex;
+    justify-content: flex-end;
+    margin: 15px 0;
+}
+
+#languageSettingsButton {
+    background: #edf4ff;
+    color: #2868c7;
+    border: 1px solid #d5e3fa;
+    padding: 11px 18px;
+    border-radius: 9px;
+    font-weight: 600;
+}
+
+#languageSettingsButton:hover {
+    background: #dce9fc;
+}
+/* =================================
+   KLARIVO LANGUAGE SELECTION SCREEN
+================================= */
+
+.language-selection-section {
+    max-width: 650px;
+    margin: 60px auto;
+    padding: 35px 25px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(38, 54, 83, 0.07);
+    text-align: center;
+}
+
+.language-selection-content h1 {
+    color: #263653;
+    margin-bottom: 12px;
+}
+
+.language-selection-content .subtitle {
+    margin-bottom: 28px;
+    line-height: 1.6;
+}
+
+.language-choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 25px 0;
+}
+
+.language-choice {
+    padding: 16px;
+    background: #f7f9fd;
+    color: #263653;
+    border: 2px solid #e1e8f2;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.language-choice:hover {
+    border-color: #2868c7;
+    background: #edf4ff;
+}
+
+.language-choice.selected {
+    border-color: #2868c7;
+    background: #edf4ff;
+    color: #2868c7;
+}
+
+#continueLanguageButton {
+    width: 100%;
+    padding: 15px;
+    background: #2868c7;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#continueLanguageButton:hover {
+    background: #1f55a5;
+}
+
+@media (max-width: 500px) {
+    .language-selection-section {
+        margin: 25px 12px;
+        padding: 25px 16px;
+    }
+
+    .language-choice-grid {
+        gap: 10px;
+    }
+}
+/* Klarivo quiz answer boxes */
+.quiz-option {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    margin: 10px 0;
+    background: #ffffff;
+    border: 1px solid #d6e2f0;
+    border-radius: 10px;
+    color: #26364a;
+    font-size: 15px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.quiz-option:hover {
+    background: #f0f6ff;
+    border-color: #3978d5;
+}
+
+.quiz-option:focus {
+    outline: 2px solid #3978d5;
+    outline-offset: 2px;
+}
+
+.quiz-option:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+}

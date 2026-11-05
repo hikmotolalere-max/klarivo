@@ -1,0 +1,657 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Klarivo helps you understand difficult topics through simple explanations, examples and interactive practice.">
+
+    <title>Klarivo | Learning made clearer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">K</span>
+            <span>klarivo<span class="logo-dot">.</span></span>
+        </div>
+
+        <p class="tagline">Understand more. Confusion less.</p>
+    </header>
+
+    <main>
+        <!-- LANGUAGE SELECTION SCREEN -->
+        <section id="languageSelectionSection" class="language-selection-section">
+
+            <div class="language-selection-content">
+
+                <div class="welcome-illustration">
+                    🌍 <span>✦</span>
+                </div>
+
+                <h1>Welcome to Klarivo!</h1>
+
+                <p class="subtitle">
+                    Choose the language you're most comfortable using.
+                </p>
+
+                <div class="language-choice-grid">
+
+                    <button type="button" class="language-choice selected"
+                        data-language="en">
+                        English
+                    </button>
+
+                    <button type="button" class="language-choice"
+                        data-language="yo">
+                        Yorùbá
+                    </button>
+
+                    <button type="button" class="language-choice"
+                        data-language="ha">
+                        Hausa
+                    </button>
+
+                    <button type="button" class="language-choice"
+                        data-language="ig">
+                        Igbo
+                    </button>
+
+                    <button type="button" class="language-choice"
+                        data-language="fr">
+                        Français
+                    </button>
+
+                    <button type="button" class="language-choice"
+                        data-language="ar">
+                        العربية
+                    </button>
+
+                    <button type="button" class="language-choice"
+                        data-language="es">
+                        Español
+                    </button>
+
+                    <button type="button" class="language-choice"
+                        data-language="zh">
+                        中文
+                    </button>
+
+                </div>
+
+                <button type="button" id="continueLanguageButton">
+                    Continue →
+                </button>
+
+            </div>
+
+        </section>
+        <!-- WELCOME -->
+        <section id="welcomeSection" class="welcome-section hidden">
+
+            <h1>Welcome to Klarivo!</h1>
+            <p class="subtitle">Your personal learning companion.</p>
+
+            <div class="welcome-illustration">
+                📖 <span>✦</span>
+            </div>
+
+            <form class="welcome-form" id="welcomeForm">
+
+                <label for="learnerName">What should we call you?</label>
+
+                <input
+                    type="text"
+                    id="learnerName"
+                    placeholder="Enter your first name"
+                    autocomplete="given-name"
+                    required
+                >
+
+                <label for="learnerCountry">Which country are you from?</label>
+
+                <input
+                    type="text"
+                    id="learnerCountry"
+                    list="countryOptions"
+                    placeholder="Select or type your country"
+                    autocomplete="country-name"
+                    required
+                >
+
+                <datalist id="countryOptions">
+                    <option value="Nigeria">
+                    <option value="Ghana">
+                    <option value="Kenya">
+                    <option value="South Africa">
+                    <option value="Uganda">
+                    <option value="Tanzania">
+                    <option value="United States">
+                    <option value="United Kingdom">
+                    <option value="Canada">
+                    <option value="Australia">
+                    <option value="India">
+                    <option value="China">
+                    <option value="France">
+                    <option value="Germany">
+                    <option value="Brazil">
+                    <option value="Japan">
+                    <option value="South Korea">
+                    <option value="United Arab Emirates">
+                    <option value="Saudi Arabia">
+                    <option value="Egypt">
+                </datalist>
+
+                <button type="submit">Get Started →</button>
+
+            </form>
+
+        </section>
+
+
+        <!-- DASHBOARD -->
+        <section id="learningArea" class="hidden dashboard">
+
+            <!-- DASHBOARD HEADING -->
+            <div class="dashboard-heading">
+
+                <h1 id="greeting"></h1>
+
+                <p>What shall we learn today?</p>
+
+                <div class="top-voice-assistant">
+
+                    <button
+                        type="button"
+                        id="topVoiceButton"
+                        class="voice-question-button"
+                        aria-label="Talk to Klarivo using your voice"
+                    >
+                        🎙️ Talk to Klarivo
+                    </button>
+
+                    <p id="topVoiceStatus" role="status" aria-live="polite">
+                        Ask Klarivo a question using your voice.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- LANGUAGE SETTINGS BUTTON -->
+            <div class="language-settings-toggle">
+                <button
+                    type="button"
+                    id="languageSettingsButton"
+                    aria-expanded="false"
+                    aria-controls="languageSettings"
+                >
+                    🌐 Language Settings
+                </button>
+            </div>
+
+
+            <!-- LANGUAGE SETTINGS -->
+            <section class="language-settings hidden" id="languageSettings">
+
+                <div class="language-settings-heading">
+
+                    <span class="card-label">MAKE KLARIVO YOURS</span>
+
+                    <h2>Choose your languages</h2>
+
+                    <p>
+                        Learn, speak and receive explanations in the languages
+                        that work best for you.
+                    </p>
+
+                </div>
+
+                <div class="language-settings-grid">
+
+                    <!-- SPEAKING LANGUAGE -->
+                    <div class="language-setting">
+
+                        <label for="speakingLanguage">
+                            🎙️ Speaking language
+                        </label>
+
+                        <p>
+                            Which language should Klarivo listen for when you speak?
+                        </p>
+
+                        <select id="speakingLanguage">
+                            <option value="en-US" selected>English</option>
+                            <option value="yo-NG">Yoruba</option>
+                            <option value="ha-NG">Hausa</option>
+                            <option value="ig-NG">Igbo</option>
+                            <option value="fr-FR">French</option>
+                            <option value="es-ES">Spanish</option>
+                            <option value="pt-BR">Portuguese</option>
+                            <option value="de-DE">German</option>
+                            <option value="zh-CN">Mandarin Chinese (Simplified)</option>
+                            <option value="zh-TW">Mandarin Chinese (Traditional)</option>
+                            <option value="ar-SA">Arabic</option>
+                            <option value="hi-IN">Hindi</option>
+                            <option value="sw-KE">Swahili</option>
+                            <option value="ja-JP">Japanese</option>
+                            <option value="ko-KR">Korean</option>
+                            <option value="bn-BD">Bengali</option>
+                            <option value="tr-TR">Turkish</option>
+                            <option value="it-IT">Italian</option>
+                            <option value="ru-RU">Russian</option>
+                        </select>
+
+                    </div>
+
+
+                    <!-- RESPONSE LANGUAGE -->
+                    <div class="language-setting">
+
+                        <label for="responseLanguage">
+                            💬 Response language
+                        </label>
+
+                        <p>
+                            Which language should Klarivo use when answering your questions?
+                        </p>
+
+                        <select id="responseLanguage">
+                            <option value="en-US" selected>English</option>
+                            <option value="yo-NG">Yoruba</option>
+                            <option value="ha-NG">Hausa</option>
+                            <option value="ig-NG">Igbo</option>
+                            <option value="fr-FR">French</option>
+                            <option value="es-ES">Spanish</option>
+                            <option value="pt-BR">Portuguese</option>
+                            <option value="de-DE">German</option>
+                            <option value="zh-CN">Mandarin Chinese (Simplified)</option>
+                            <option value="zh-TW">Mandarin Chinese (Traditional)</option>
+                            <option value="ar-SA">Arabic</option>
+                            <option value="hi-IN">Hindi</option>
+                            <option value="sw-KE">Swahili</option>
+                            <option value="ja-JP">Japanese</option>
+                            <option value="ko-KR">Korean</option>
+                            <option value="bn-BD">Bengali</option>
+                            <option value="tr-TR">Turkish</option>
+                            <option value="it-IT">Italian</option>
+                            <option value="ru-RU">Russian</option>
+                        </select>
+
+                    </div>
+
+
+                    <!-- LESSON LANGUAGE -->
+                    <div class="language-setting">
+
+                        <label for="lessonLanguage">
+                            📚 Lesson language
+                        </label>
+
+                        <p>
+                            Which language should Klarivo use for your lessons and quizzes?
+                        </p>
+
+                        <select id="lessonLanguage">
+                            <option value="en-US" selected>English</option>
+                            <option value="yo-NG">Yoruba</option>
+                            <option value="ha-NG">Hausa</option>
+                            <option value="ig-NG">Igbo</option>
+                            <option value="fr-FR">French</option>
+                            <option value="es-ES">Spanish</option>
+                            <option value="pt-BR">Portuguese</option>
+                            <option value="de-DE">German</option>
+                            <option value="zh-CN">Mandarin Chinese (Simplified)</option>
+                            <option value="zh-TW">Mandarin Chinese (Traditional)</option>
+                            <option value="ar-SA">Arabic</option>
+                            <option value="hi-IN">Hindi</option>
+                            <option value="sw-KE">Swahili</option>
+                            <option value="ja-JP">Japanese</option>
+                            <option value="ko-KR">Korean</option>
+                            <option value="bn-BD">Bengali</option>
+                            <option value="tr-TR">Turkish</option>
+                            <option value="it-IT">Italian</option>
+                            <option value="ru-RU">Russian</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <p class="language-note">
+                    Speaking and listening language availability depends
+                    on your browser and device.
+                </p>
+
+            </section>
+
+
+            <!-- PROGRESS SUMMARY -->
+            <div class="progress-section">
+
+                <h2>Your learning progress</h2>
+
+                <div class="progress-grid">
+
+                    <div class="progress-card">
+                        <span id="topicsCompleted">0</span>
+                        <p>Topics studied</p>
+                    </div>
+
+                    <div class="progress-card">
+                        <span id="lessonsCompleted">0</span>
+                        <p>Lessons completed</p>
+                    </div>
+
+                    <div class="progress-card">
+                        <span id="averageScore">0%</span>
+                        <p>Quiz average</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOPIC SELECTION -->
+            <div class="learning-card">
+
+                <span class="card-label">YOUR LEARNING SPACE</span>
+
+                <h2>What would you like to understand?</h2>
+
+                <p>
+                    Choose a subject or enter any topic you want to explore.
+                    You can also speak your topic instead of typing.
+                </p>
+
+                <form class="topic-form" id="topicForm">
+
+                    <label for="learningCategory">Choose a category</label>
+
+                    <select id="learningCategory">
+                        <option value="">Select a category</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Business">Business</option>
+                        <option value="Data Skills">Data Skills</option>
+                        <option value="Science">Science</option>
+                        <option value="Other">Other topics</option>
+                    </select>
+
+
+                    <label for="learningLevel">Choose your learning level</label>
+
+                    <select id="learningLevel">
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+
+
+                    <label for="topic">Enter your topic</label>
+
+                    <div class="topic-input-voice">
+
+                        <input
+                            type="text"
+                            id="topic"
+                            placeholder="e.g. What is an API?"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="topicVoiceButton"
+                            class="voice-question-button"
+                            aria-label="Speak your learning topic"
+                        >
+                            🎙️ Speak topic
+                        </button>
+
+                    </div>
+
+                    <p
+                        id="topicVoiceStatus"
+                        class="voice-status"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
+
+                    <button type="submit">Start Learning →</button>
+
+                </form>
+
+            </div>
+
+
+            <!-- LESSON -->
+            <section class="lesson-section" id="lessonSection">
+
+                <h2>Your Explanation</h2>
+
+                <div id="readAloudControls" class="read-aloud-controls hidden">
+
+                    <div class="read-aloud-heading">
+
+                        <span>🔊 Listen to this lesson</span>
+
+                        <p>
+                            Prefer listening? Klarivo can read your lesson aloud.
+                        </p>
+
+                    </div>
+
+                    <div class="read-aloud-actions">
+
+                        <button type="button" id="readAloudButton">
+                            ▶ Listen
+                        </button>
+
+                        <button type="button" id="pauseReadingButton" disabled>
+                            ⏸ Pause
+                        </button>
+
+                        <button type="button" id="stopReadingButton" disabled>
+                            ⏹ Stop
+                        </button>
+
+                    </div>
+
+                    <div class="reading-settings">
+
+                        <label for="readingSpeed">Reading speed</label>
+
+                        <select id="readingSpeed">
+                            <option value="0.75">Slow</option>
+                            <option value="1" selected>Normal</option>
+                            <option value="1.25">Fast</option>
+                        </select>
+
+                        <label for="readingVoice">Voice</label>
+
+                        <select id="readingVoice">
+                            <option value="">Default voice</option>
+                        </select>
+
+                    </div>
+
+                    <p id="readingStatus" aria-live="polite"></p>
+
+                </div>
+
+                <div id="lesson"></div>
+
+            </section>
+
+
+            <!-- QUIZ -->
+            <section id="quizArea" class="hidden">
+
+                <h2>Test your understanding</h2>
+
+                <p id="quizIntroduction">
+                    Take your time to understand the lesson.
+                    When you're ready, let's practise!
+                </p>
+
+                <label for="questionCount">
+                    How many questions would you like?
+                </label>
+
+                <select id="questionCount">
+                    <option value="3">3 Questions</option>
+                    <option value="5" selected>5 Questions</option>
+                    <option value="10">10 Questions</option>
+                </select>
+
+                <button type="button" id="startQuizButton">
+                    Start Quiz →
+                </button>
+
+                <div id="quiz"></div>
+
+                <div id="feedback"></div>
+
+            </section>
+
+
+            <!-- LEARNING JOURNEY -->
+            <section class="journey-section">
+
+                <h2>Your learning journey</h2>
+
+                <div class="journey-grid">
+
+                    <button class="journey-card" type="button" data-stage="understand">
+                        <span class="journey-number">01</span>
+                        <h3>Understand</h3>
+                        <p>Simple explanations</p>
+                    </button>
+
+                    <button class="journey-card" type="button" data-stage="explore">
+                        <span class="journey-number">02</span>
+                        <h3>Explore</h3>
+                        <p>Everyday examples</p>
+                    </button>
+
+                    <button class="journey-card" type="button" data-stage="practise">
+                        <span class="journey-number">03</span>
+                        <h3>Practise</h3>
+                        <p>Interactive quizzes</p>
+                    </button>
+
+                    <button class="journey-card" type="button" data-stage="grow">
+                        <span class="journey-number">04</span>
+                        <h3>Grow</h3>
+                        <p>Build confidence</p>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- NEXT LEARNING -->
+            <section class="next-learning">
+
+                <h2>Keep exploring</h2>
+
+                <p>
+                    Ready to learn something new?
+                    Choose another topic and continue your journey.
+                </p>
+
+            </section>
+
+
+            <!-- ASK KLARIVO -->
+            <section id="askKlarivoSection" class="ask-klarivo-section">
+
+                <div class="ask-klarivo-heading">
+
+                    <span class="card-label">
+                        YOUR PERSONAL LEARNING ASSISTANT
+                    </span>
+
+                    <h2>Still curious? Ask Klarivo.</h2>
+
+                    <p>
+                        Have a question? Need help understanding something?
+                        I'm here to help you learn.
+                    </p>
+
+                </div>
+
+                <div
+                    id="askChat"
+                    class="ask-chat"
+                    aria-live="polite"
+                    aria-label="Conversation with Klarivo"
+                ></div>
+
+                <form id="askForm" class="ask-form">
+
+                    <label for="askQuestion">
+                        What would you like to ask?
+                    </label>
+
+                    <textarea
+                        id="askQuestion"
+                        placeholder="Type your question or use the microphone to speak..."
+                        rows="3"
+                        maxlength="1000"
+                        required
+                    ></textarea>
+
+                    <p
+                        id="voiceStatus"
+                        class="voice-status"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
+
+                    <div class="ask-form-actions">
+
+                        <button
+                            type="button"
+                            id="voiceQuestionButton"
+                            class="voice-question-button"
+                            aria-label="Start voice input"
+                        >
+                            🎙️ Speak
+                        </button>
+
+                        <button type="submit" id="askButton">
+                            Ask Klarivo →
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>Klarivo · Learning made clearer</p>
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
+```
